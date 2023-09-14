@@ -2,6 +2,7 @@
  * 형변환연산자
  * (int)값
  */
+
 public class C_단항연산자_2 {
 
 	public static void main(String[] args) {
