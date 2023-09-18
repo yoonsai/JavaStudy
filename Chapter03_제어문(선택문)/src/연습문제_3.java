@@ -12,5 +12,6 @@ public class 연습문제_3 {
 		else
 			System.out.println("a="+a);
 	}
+	    // Math.abs(a)
 
 }

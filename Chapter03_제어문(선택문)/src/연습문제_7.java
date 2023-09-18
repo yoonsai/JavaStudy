@@ -21,8 +21,14 @@ public class 연습문제_7 {
 			System.out.print(a+"*"+b+"="+(a*b));
 			break;
 		case "/":
-			System.out.print(a+"/"+b+"="+(a/b));
-			break;
+			if(b==0) {
+				System.out.println("0으로 나눌 수 없습니다.");
+			}
+			else {
+				System.out.print(a+"/"+b+"="+(a/b));
+			}
+		default:
+			System.out.println("처리할 수 없는 연산자입니다.");
 		}
 	}
 
