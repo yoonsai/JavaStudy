@@ -1,0 +1,68 @@
+package com.sist.main2;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.*;
+public class SiteMain {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scan=new Scanner(System.in);
+		Map map=new HashMap();
+		map.put("c1", new MemberController());
+		map.put("c2", new BoardController());
+		map.put("c3", new MovieController());
+		map.put("c4", new MusicController());
+		map.put("c5", new SeoulCotroller());
+		
+		while(true)
+		{
+			System.out.println("=====메뉴=====");
+			System.out.println("1.회원관리");
+			System.out.println("2.게시판");
+			System.out.println("3.영화");
+			System.out.println("4.음악");
+			System.out.println("5.서울여행");
+			System.out.println("6.종료");
+			System.out.println("==================");
+			System.out.println("메뉴선택:");
+			int menu=scan.nextInt();
+			
+			if(menu==6) {
+				System.out.println("프로그램 종료!");
+			}
+			Controller c=(Controller)map.get("c"+menu);
+			c.execute();
+//			if(menu==1)
+//			{
+//			    MemberController mc=new MemberController();
+//				mc.execute();
+//			}
+//			else if(menu==2)
+//			{
+//				BoardController bc=new BoardController();
+//				bc.execute();
+//			}
+//			else if(menu==3)
+//			{
+//				MovieController mc=new MovieController();
+//				mc.execute();
+//			}
+//			else if(menu==4)
+//			{
+//				MusicController mc=new MusicController();
+//				mc.execute();
+//			}
+//			else if(menu==5)
+//			{
+//				SeoulCotroller sc=new SeoulCotroller();
+//				sc.execute();
+//			}
+//			else if(menu==6)
+//			{
+//				System.out.println("프로그램을 종료합니다");
+//				break;
+//			}
+		}
+	}
+
+}
