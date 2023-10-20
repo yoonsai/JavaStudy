@@ -1,7 +1,7 @@
 package com.sist.main;
 import com.sist.manager2.*;
 class A{
-	private int a;
+	int a;
 	public A(int a)
 	{
 		this.a=a;
@@ -20,6 +20,7 @@ class B extends A
 	public B(int a)
 	{
 		super(a);
+		a=1000;
 		
 	} // 상위 클래스의 생성자를 호출하는 메소드 = super
 //	public B()
@@ -31,7 +32,8 @@ public class MainClass {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Sub s=new Sub();
+	    B s=new B(100);
+		System.out.println(s.a);
 		
 	}
 

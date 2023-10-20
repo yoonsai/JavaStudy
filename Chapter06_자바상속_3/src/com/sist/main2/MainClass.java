@@ -1,4 +1,7 @@
 package com.sist.main2;
+
+import com.sist.manager.Super;
+
 // 메모리 => 상위 클래스 => 상속받은 클래스 메모리 할당
 class Superr
 {
@@ -12,18 +15,19 @@ class Superr
 class Sub extends Superr
 {
 	int a;
-	public Sub() {
+	public Sub(int a) {
 		
 		// 상위 클래스가 디폴트 생성자인 경우에만 super();을 생략 가능
 		//super(); // 생략가능 => 상위클래스를 호출해서 메모리 할당을 한 뒤 하위 클래스 생성 => public super() 자동추가
 		//=> Super super=new Super();
 		
 		//상위 클래스의 매개변수가 있는 생성자는 반드시 호출 후에 사용
-		super(100);
-		a=1000;
-		System.out.println("Sub생성자 호출...");
-		System.out.println("Sub:a="+this.a); // this생략가능 => 자신을 나타내주는 객체명
-		System.out.println("Super:a="+super.a); // super=> 상위 클래스를 나타내는 객체명
+		super(10);
+		this.a=100;
+		//b=1000;
+//		System.out.println("Sub생성자 호출...");
+//		System.out.println("Sub:a="+this.a); // this생략가능 => 자신을 나타내주는 객체명
+//		System.out.println("Super:a="+super.a); // super=> 상위 클래스를 나타내는 객체명
 		
 		/*
 		 * heap
@@ -52,8 +56,8 @@ public class MainClass {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Sub s=new Sub();
-		//System.out.println(s.a);
+		Superr s=new Sub(10);
+		System.out.println(s.a);
 	}
 
 }
