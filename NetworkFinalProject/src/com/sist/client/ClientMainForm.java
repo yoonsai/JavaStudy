@@ -49,8 +49,8 @@ public class ClientMainForm extends JFrame implements ActionListener{
 		cp.setBounds(135,15,1500,830);
 		add(cp);
 		
-		//setSize(1650,880);
-		setSize(1920,1080);
+		setSize(1650,880);
+		//setSize(1920,1080);
 		//setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		//setResizable(false);
