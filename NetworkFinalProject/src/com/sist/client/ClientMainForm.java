@@ -2,9 +2,12 @@ package com.sist.client;
 import javax.swing.*;
 
 import com.sist.common.ImageChange;
+import com.sist.manager.FoodManager;
+import com.sist.vo.FoodCategoryVO;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.*;
 /*
  * FlowLayout : JPanel
@@ -37,6 +40,7 @@ public class ClientMainForm extends JFrame implements ActionListener{
 	JLabel logo=new JLabel();
 	ControlPanel cp=new ControlPanel();
 	Login login=new Login();
+	FoodManager fm=new FoodManager();
 	public ClientMainForm()
 	{
 		setLayout(null); // 직접배치
@@ -64,7 +68,9 @@ public class ClientMainForm extends JFrame implements ActionListener{
     	
     	login.b1.addActionListener(this);
 		
-		
+    	ArrayList<FoodCategoryVO> list=fm.foodCategorydata(1);
+    	//cp.hp.cardInit();
+    	cp.hp.cardPrint(list);
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -82,7 +88,7 @@ public class ClientMainForm extends JFrame implements ActionListener{
 		}
 		else if(e.getSource()==mp.b2)
 		{
-			
+			cp.card.show(cp, "find");
 		}
 		else if(e.getSource()==mp.b3)
 		{
