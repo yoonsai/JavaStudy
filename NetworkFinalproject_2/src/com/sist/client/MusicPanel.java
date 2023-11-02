@@ -74,7 +74,13 @@ public class MusicPanel extends JPanel{
 				URL url = new URL("https://"+rtVO.getImage());
 				Image img = ImageChange.getImage(new ImageIcon(url), 90, 90);
 				Object[] data = {
-					rtVO.getNo(),rtVO.getGrade(),new ImageIcon(img),"<html>"+rtVO.getTitle()+"</html>","<html>"+rtVO.getArtist()+"</html>","<html>"+rtVO.getAlbum()+"</html>","♥ "+formatter.format(rtVO.getLike()),formatter.format(rtVO.getAllListener()),formatter.format(rtVO.getAllplayCount())
+					rtVO.getNo(),rtVO.getGrade(),new ImageIcon(img)
+					,"<html>"+rtVO.getTitle()+"</html>"
+					,"<html>"+rtVO.getArtist()+"</html>"
+					,"<html>"+rtVO.getAlbum()+"</html>"
+					,"♥ "+formatter.format(rtVO.getLike())
+					,formatter.format(rtVO.getAllListener())
+					,formatter.format(rtVO.getAllplayCount())
 				};
 				model.addRow(data);
 			}
