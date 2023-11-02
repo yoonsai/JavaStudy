@@ -78,39 +78,39 @@ public class MagazineManager {
 			}
 		}
 		
-		try {
-			
-			fis=new FileInputStream("c:\\music_data\\magdet.txt");
-			ois=new ObjectInputStream(fis);
-			dList=(ArrayList<MagazineDetailVO>)ois.readObject();
-			
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-		}finally
-		{
-			try {
-				fis.close();
-				ois.close();
-				
-			}catch(Exception e)
-			{
-				
-			}
-		}
+//		try {
+//			
+//			fis=new FileInputStream("c:\\music_data\\magdet.txt");
+//			ois=new ObjectInputStream(fis);
+//			dList=(ArrayList<MagazineDetailVO>)ois.readObject();
+//			
+//		}catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}finally
+//		{
+//			try {
+//				fis.close();
+//				ois.close();
+//				
+//			}catch(Exception e)
+//			{
+//				
+//			}
+//		}
 	}
 	public static void main(String[] args) {
 		MagazineManager mm=new MagazineManager();
 		System.out.println("저장완료");
-		for(MagazineDetailVO vo:dList)
-		{
-				System.out.println(vo.getNo());
-				System.out.println(vo.getTitle());
-				System.out.println(vo.getPoster());
-				System.out.println(vo.getSubject());
-				//System.out.println(vo.getSubject());
-				System.out.println("================================");
-		}
+//		for(MagazineDetailVO vo:dList)
+//		{
+//				System.out.println(vo.getNo());
+//				System.out.println(vo.getTitle());
+//				System.out.println(vo.getPoster());
+//				System.out.println(vo.getSubject());
+//				//System.out.println(vo.getSubject());
+//				System.out.println("================================");
+//		}
 	}
 	public int MagazineTotalPage() {
 		int total = (int)(Math.ceil(mList.size()/20.0));

@@ -7,9 +7,10 @@ import java.awt.*;
 public class ChatPanel extends JPanel{
 	JTable table1,table2;
 	DefaultTableModel model1,model2;
-	JTextPane pane;
+	JTextArea pane;
 	JTextField tf;
 	JButton  b1,b2,b3,b4,b5,b6;
+	JScrollBar bar;
 	public ChatPanel()
 	{
 		setLayout(null);
@@ -37,12 +38,14 @@ public class ChatPanel extends JPanel{
 	    //js2.setBounds(10,375,450,300);
 	    add(js2);
 	    
-	    pane=new JTextPane();
+	    pane=new JTextArea();
 	    JScrollPane js3=new JScrollPane(pane);
 	    pane.setEditable(false);
 	    //js3.setBounds(470,15,400,310);
 	    js3.setBounds(750,15,535,310);
 	    add(js3);
+	    
+	    bar=js3.getVerticalScrollBar();
 	    
 	    
 	    tf=new JTextField();

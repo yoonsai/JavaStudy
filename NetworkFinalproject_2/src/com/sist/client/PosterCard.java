@@ -2,31 +2,30 @@ package com.sist.client;
 import java.awt.*;
 import javax.swing.*;
 import java.net.*;
-
-import com.sist.common.ImageChange;
 import com.sist.vo.*;
+import com.sist.common.ImageChange;
 public class PosterCard extends JPanel{
-	JLabel poLa=new JLabel();
-	JLabel tLa=new JLabel();
-	public PosterCard(MagazineVO vo)
-	{
-		setLayout(null);
-		poLa.setBounds(5,5,500,170);
-		tLa.setBounds(5, 172, 300, 30);
+	JLabel poLa = new JLabel();
+	JLabel tLa = new JLabel();
+	int mno = 0;
+	public PosterCard(MagazineVO vo) {
+		this.setLayout(null);
+		poLa.setBounds(5, 5, 260, 130);
+		tLa.setBounds(5, 140, 260, 30);
 		
-		add(poLa);
-		add(tLa);
+		this.add(poLa);
+		this.add(tLa);
 		
 		try {
-			
-			    URL url=new URL("http:"+vo.getImage());
-				Image image=ImageChange.getImage(new ImageIcon(url), 500, 170);
+			if(vo.getImage()!=null) {
+				URL url = new URL("https:"+vo.getImage());
+				Image image = ImageChange.getImage(new ImageIcon(url), 260, 130);
 				poLa.setIcon(new ImageIcon(image));
-			tLa.setText(vo.getTitle());
-		}catch(Exception e)
-		{
-			e.printStackTrace();
+				tLa.setText(vo.getTitle());
+				mno = vo.getNo();
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 	}
-
 }

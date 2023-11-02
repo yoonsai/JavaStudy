@@ -1,130 +1,141 @@
 package com.sist.client;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.awt.*;
+
 import javax.swing.*;
 
-import com.sist.manager.FoodManager;
-import com.sist.manager.MusicManager;
-import com.sist.vo.*;
-public class HomePanel extends JPanel implements ActionListener{
-   JButton b1,b2,b3,b4,b5;
-   JLabel pageLa;
-   PosterCard[] pcs=new PosterCard[9];
-   MusicManager fm=new MusicManager();
-   JPanel pan=new JPanel();
-   public HomePanel()
-   {
-	   JPanel p=new JPanel();
-	   p.setLayout(new GridLayout(1,3,20,20));
-	   add(p);
-//	   b1=new JButton("믿고 보는 맛집 리스트");
-//	   b1.setPreferredSize(new Dimension(300,35));
-//	   b2=new JButton("지역별 인기 맛집");
-//	   b2.setPreferredSize(new Dimension(300,35));
-//	   b3=new JButton("메뉴별 인기 맛집");
-//	   b3.setPreferredSize(new Dimension(300,35));
-//	   p.add(b1);p.add(b2);p.add(b3);
-	   pan.setLayout(new GridLayout(4,3,5,5)); // 한줄에 3개씩 = 4개 , 간격 5
-	   //pan.setBackground(Color.black);
-	   b4=new JButton("이전");
-   	   b5=new JButton("다음");
-   	   pageLa=new JLabel("1 page / 1 pages");
-   	
-   	   JPanel p1=new JPanel();
-   	   p1.add(b4);
-       p1.add(pageLa);
-   	   p1.add(b5);
-   	
-   	   p1.setBounds(400, 770, 710, 35);
-   	   add(p1);
-   	   
-   	   
-   	
-   	
-	   // 배치
-	   setLayout(new BorderLayout());
-	   add("North",p);
-	   add("South",p1);
-	   add("Center",pan);
-	   
-	   //b1.addActionListener(this);
-	   b4.addActionListener(this);
-	   b5.addActionListener(this);
-	   
-   }
-   public void cardPrint(ArrayList<MagazineVO> list)
-   {
-//	   int i=0;
-//	   for(FoodCategoryVO vo:list)
-//	   {
-//		   pcs[i]=new PosterCard(vo);
-//		   if(list.size()==6)
-//		   {
-//			   FoodCategoryVO fvo=new FoodCategoryVO();
-//			   fvo.setPoster("c:\\javaDev\\def.png");
-//			   for(int j=6;j<12;j++)
-//			   {
-//				   pcs[j]=new PosterCard(fvo);
-//			   }
-//		   }
-//		   pan.add(pcs[i]);
-//		   i++;
-//	   }
-	   
-	   int i=0;
-	   for(MagazineVO vo:list)
-	   {
-		   pcs[i]=new PosterCard(vo);
-		   pan.add(pcs[i]);
-		   System.out.println(vo.getTitle());
-		   i++;
-	   }
-   }
-   public void cardInit(ArrayList<MagazineVO> list)
-   {
-	   for(int i=0;i<list.size();i++)
-	   {
-		   pcs[i].poLa.setIcon(null);
-		   pcs[i].tLa.setText("");
-		   
-	   }
-	   
-	   pan.removeAll(); // pan에있는 데이터 제거
-	   pan.validate(); // panel 재배치ㅣ
-   }
-   @Override
-   public void actionPerformed(ActionEvent e) {
-	// TODO Auto-generated method stub
-	   if(e.getSource()==b1)
-	   {
-		   ArrayList<MagazineVO> list=fm.MagazineCategoryData(1);
-		   cardInit(list);
-		   cardPrint(list);
-	   }else if(e.getSource()==b2)
-	   {
-		   ArrayList<MagazineVO> list=fm.MagazineCategoryData(2);
-		   
-		   MagazineVO fvo=new MagazineVO();
-		   fvo.setImage(null);
-		   fvo.setTitle("");
-		   for(int j=0;j<6;j++)
-		   {
-			   list.add(fvo);
-		   }
-		   
-		   
-		   cardInit(list);
-		   cardPrint(list);
-	   }
-	   else if(e.getSource()==b3)
-	   {
-		   ArrayList<MagazineVO> list=fm.MagazineCategoryData(3);
-		   cardInit(list);
-		   cardPrint(list);
-	   }
+import com.sist.vo.MagazineDetailVO;
+import com.sist.vo.MagazineVO;
+import com.sist.manager.MagazineDetailManager;
+import com.sist.manager.MagazineManager;
+
+public class HomePanel extends JPanel implements ActionListener,MouseListener{
+	JButton b1,b2;
+	JLabel la1;
+	PosterCard[] psc = new PosterCard[20];
+	MagazineManager mm =new MagazineManager();
+	MagazineDetailManager mdm = new MagazineDetailManager();
+	JPanel pan = new JPanel();
+	ControlPanel cp;
+	int curPage = 1;
+	int totalPage = 0;
 	
-   }
+	public HomePanel(ControlPanel cp) {
+		this.cp = cp;
+		JPanel p = new JPanel();
+		b1 = new JButton("이전");
+		b2 = new JButton("다음");
+		totalPage = mm.MagazineTotalPage();
+		la1 = new JLabel("1page/"+totalPage+"pages");
+		p.add(b1);
+		p.add(la1);
+		p.add(b2);
+		
+		pan.setLayout(new GridLayout(4,5,5,5));
+		//배치
+		this.setLayout(new BorderLayout());
+		this.add("South",p);
+		this.add("Center",pan);
+		
+		b1.addActionListener(this);
+		b2.addActionListener(this);
+		
+	}
+	
+	public void cardPrint(ArrayList<MagazineVO> list) {
+		int i = 0;
+		for(MagazineVO vo:list) {
+			psc[i] = new PosterCard(vo);
+			pan.add(psc[i]);
+			psc[i].addMouseListener(this);
+			i++;
+		}
+	}
+	public void cardInit() {
+		pan.removeAll();//데이터 제거
+		pan.repaint();
+		pan.revalidate();// panel 재배치
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==b1) {
+			if(curPage>1) {
+				curPage--;
+				ArrayList<MagazineVO> list = mm.MagazineCategoryData(curPage);
+				cardInit();
+				cardPrint(list);
+				la1.setText(curPage+"page/"+totalPage+"pages");
+			}
+		}
+		else if(e.getSource()==b2) {
+			if(curPage<totalPage) {
+				curPage++;
+				ArrayList<MagazineVO> list = mm.MagazineCategoryData(curPage);
+				if(list.size()!=20) {
+					MagazineVO mVO = new MagazineVO();
+					mVO.setImage(null);
+					mVO.setTitle("");
+					for(int i=0;i<20-list.size();i++) {
+						list.add(mVO);
+					}
+				}
+				cardInit();
+				cardPrint(list);
+				la1.setText(curPage+"page/"+totalPage+"pages");
+			}
+			
+		}
+
+		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		for(int i = 0;i<psc.length;i++) {
+			if(e.getSource()==psc[i]) {
+				if(e.getClickCount()==2) {
+					int p_no = psc[i].mno;
+					ArrayList<MagazineDetailVO> vo = mdm.MagazineInfoData(p_no);
+					cp.mdp.MagazinePrint(vo);
+					cp.card.show(cp, "MagazineDetail");
+				}
+			}
+		}
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
