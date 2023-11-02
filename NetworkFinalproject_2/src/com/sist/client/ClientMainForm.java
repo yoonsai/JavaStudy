@@ -77,6 +77,8 @@ public class ClientMainForm extends JFrame implements ActionListener,Runnable{
 			cp.card.show(cp, "Home");
 		}
 		else if(e.getSource()==mp.b2) {
+			cp.sp.AlbumPrint(am.AlbumDataRead());
+			cp.sp.tf.setText("");
 			cp.card.show(cp, "Search");
 		}
 		else if(e.getSource()==mp.b3) {

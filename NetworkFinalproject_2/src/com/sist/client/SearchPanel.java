@@ -113,6 +113,24 @@ implements ActionListener{
     		 }
     	 }catch(Exception ex){}
      }
+     public void AlbumPrint(ArrayList<AlbumVO> list) {
+ 		try {
+ 			for(int i = model.getRowCount()-1;i>=0;i--) {
+ 				model.removeRow(i);
+ 			}
+ 			for(AlbumVO vo:list) {
+ 				URL url = new URL(vo.getImage());
+ 				Image image = ImageChange.getImage(new ImageIcon(url), 90, 90);
+ 				
+ 				Object[] data = {
+ 						new ImageIcon(image),"<html>"+vo.getTitle()+"</html>","<html>"+vo.getAlbum()+"</html>","<html>"+vo.getSinger()+"</html>",vo.getDate()
+ 				};
+ 				model.addRow(data);
+ 			}
+ 		} catch (Exception e) {
+ 			// TODO: handle exception
+ 		}
+ 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
