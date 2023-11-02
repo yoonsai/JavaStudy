@@ -31,8 +31,8 @@ public class MusicPanel extends JPanel{
 		la1.setPreferredSize(new Dimension(la1.getWidth(),50));
 		la1.setFont(new Font("맑은 고딕",Font.BOLD,20));
 		
-		String[] col = {"등수","순위변동","","곡명","가수명","앨범명","좋아요","전체 청취수","전체 재생수"};
-		Object[][] row = new Object[0][9];
+		String[] col = {"등수","","곡명","가수명","앨범명","좋아요","전체 청취수","전체 재생수"};
+		Object[][] row = new Object[0][8];
 		
 		model = new DefaultTableModel(row,col) {
 			@Override
@@ -51,10 +51,10 @@ public class MusicPanel extends JPanel{
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
         ta.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-        ta.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        //ta.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
 		ta.setRowHeight(100);
 		ta.getColumn("등수").setPreferredWidth(5);
-		ta.getColumn("순위변동").setPreferredWidth(5);
+		//ta.getColumn("순위변동").setPreferredWidth(5);
 		JScrollPane js = new JScrollPane(ta);
 		
 		this.setLayout(new BorderLayout());
@@ -73,12 +73,28 @@ public class MusicPanel extends JPanel{
 			for(RealTimeChartVO rtVO:vo) {
 				URL url = new URL("https://"+rtVO.getImage());
 				Image img = ImageChange.getImage(new ImageIcon(url), 90, 90);
+				Object style;
+				if(rtVO.getGrade().contains("▲"))
+				{
+					style="<html><font color=\"red\">"+rtVO.getGrade()+"</font></html>";
+				}
+				else if(rtVO.getGrade().contains("▼"))
+				{
+					style="<html><font color=\"blue\">"+rtVO.getGrade()+"</font></html>";
+				}
+				else
+				{
+					style="<html><font color=\"black\">"+rtVO.getGrade()+"</font></html>";
+				}
+
 				Object[] data = {
-					rtVO.getNo(),rtVO.getGrade(),new ImageIcon(img)
+					
+					"<html><div>"+rtVO.getNo()+"</div>"+style+"</html>"
+					,new ImageIcon(img)
 					,"<html>"+rtVO.getTitle()+"</html>"
 					,"<html>"+rtVO.getArtist()+"</html>"
 					,"<html>"+rtVO.getAlbum()+"</html>"
-					,"♥ "+formatter.format(rtVO.getLike())
+					,"<html><font color=\"red\">"+"♥ "+"</font>"+formatter.format(rtVO.getLike())+"</html>"
 					,formatter.format(rtVO.getAllListener())
 					,formatter.format(rtVO.getAllplayCount())
 				};

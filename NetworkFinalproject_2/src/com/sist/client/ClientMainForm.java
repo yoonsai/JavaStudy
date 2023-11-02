@@ -59,6 +59,10 @@ public class ClientMainForm extends JFrame implements ActionListener,Runnable{
 		// 채팅 등록 
     	cp.cp.tf.addActionListener(this);
     	cp.cp.b6.addActionListener(this);// 프로그램 종료
+    	
+        cp.cp.b4.addActionListener(this);
+		
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 	}
 	public static void main(String[] args) {
 		
@@ -96,6 +100,19 @@ public class ClientMainForm extends JFrame implements ActionListener,Runnable{
 			{
 				out.write((Function.EXIT+"|\n").getBytes());
 			}catch(Exception ex) {}
+		}
+		else if(e.getSource()==cp.cp.b4) {
+			String[] info = new String[4];
+			int row = cp.cp.table2.getSelectedRow();
+			if(row==-1) {
+				JOptionPane.showMessageDialog(this, "정보를 보기 위한 사용자를 클릭해주세요.");
+				return;
+			}
+			UserInfoPanel uip = new UserInfoPanel();
+			for(int i = 0;i<cp.cp.table2.getColumnCount();i++) {
+				info[i] = String.valueOf(cp.cp.table2.getModel().getValueAt(row, i));
+			}
+			uip.UserData(info);
 		}
 		else if(e.getSource()==login.b1)
 		{

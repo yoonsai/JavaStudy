@@ -38,7 +38,6 @@ public class ChatPanel extends JPanel{
 	   js3.setBounds(720, 15, 700, 370);
 	   add(js3);
 	   bar=js3.getVerticalScrollBar();
-	   
 	   tf=new JTextField();
 	   tf.setBounds(720, 390, 700, 30);
 	   add(tf);
