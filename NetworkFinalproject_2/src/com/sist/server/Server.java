@@ -26,7 +26,7 @@ public class Server implements Runnable{
     // 클라이언트 정보 저장 => id,name,sex,ip,port
 	private Vector<Client> waitVc=new Vector<Client>();
 	private ServerSocket ss;
-	private final int PORT=7777;
+	private final int PORT=8080;
 	
 	// 서버 가동 ==> 한번만 실행이 가능 
 	public Server()
