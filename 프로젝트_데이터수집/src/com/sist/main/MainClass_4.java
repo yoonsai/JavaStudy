@@ -17,13 +17,14 @@ public class MainClass_4 {
 		        
 		        Document doc = Jsoup.connect(url).get();
 		        Elements link = doc.select("div.hot_item_list2 div.hot-item2 div.info p.tit a");
-		        Elements images=doc.select("div.hot_item_list2 div.hot-item2 div.box a img");
+		        //Elements images=doc.select("div.hot_item_list2 div.hot-item2 div.box a img");
 		        
 		        for (int j = 0; j < link.size(); j++) {
 		            String subLink = "https://www.visitbusan.net" + link.get(j).attr("href");
 		            //System.out.println(subLink);
 		            Document doc2=Jsoup.connect(subLink).get();
-		            String image="https://www.visitbusan.net"+images.attr("src").substring(0, images.attr("src").lastIndexOf("thumbL"))+"ttiel";
+		            Elements images=doc.select("div.hot_item_list2 div.hot-item2 div.actionImg3 a img");
+		            String image="https://www.visitbusan.net"+images.get(j).attr("src").substring(0, images.attr("src").lastIndexOf("thumbL"))+"ttiel";
 	        	    //System.out.println(image);
 		            Elements titles=doc2.select("section#title div.innerwrap h4.tit");
 		            String title=titles.text();
@@ -101,11 +102,13 @@ public class MainClass_4 {
 		            
 		            String msg=(s++)+"|"+title+"|"+image+"|"+content+"|"+
 		            		menu+"|"+address+"|"+call+"|"+rest+"|"+time+"\r\n";
-
-		            //System.out.println(msg);
+		            String image1=image+"\r\n";
 		            
-		            FileWriter fw=new FileWriter("c:\\java_data\\food.txt", true);
-		            fw.write(msg);
+
+		            System.out.println(image1);
+		            
+		            FileWriter fw=new FileWriter("c:\\java_data\\foodImage.txt", true);
+		            fw.write(image1);
 		            fw.close();
 		        }
 
