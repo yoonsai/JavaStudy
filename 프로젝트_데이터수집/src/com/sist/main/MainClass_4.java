@@ -11,73 +11,125 @@ public class MainClass_4 {
 		// TODO Auto-generated method stub
 		try {
 			int s=1;
-		    for (int i = 1; i < 35; i++) {
-	        	String url="https://www.visitbusan.net/index.do?uc_seqs=&ucMtmUcSeq=&ucMtmItemUcSeq=&file_name=&gugun_nm=&cate2_nm=&ucc1_seq=17&cate1_nm=&ucdpp_seqs=&uct_seqs=&ucum_seqs=&ucl_seq=7&ucl_use_yn=Y&exclude_uc_seq=&place=&title=&subtitl=&hash_tag=&middle_size_rm2=&menuCd=DOM_000000201002000000&list_type=TYPE_SMALL_CARD&order_type=NEW&listCntPerPage2=8&ucum_seq=&ub_seq=&distance=0.0&cate2_month=&favoriteThis=N&myFavoriteUserId=&sel_visit_place=N&user_id=&search_keyword=&num_room=&ulg_seq=&ucc1_use_yn=&ucc2_seq=&ucg_seq=&ucogl_seq=&main_img_ucmf_seq=&main_title=&charger_positn=&charger_nm=&charger_tel=&tripadvisor_id=&lat=&lng=&bundle_cntnts_yn=&use_yn=Y&sort_num=&page_no="+i;
-		        //System.out.println(url);
-		        
+		    for (int i = 1; i < 10; i++) {
+	        	String url="https://egnmall.kr/kwa-ABS_goods_l-1009003?PB_1410486717="+i;
 		        Document doc = Jsoup.connect(url).get();
-		        Elements link = doc.select("div.hot_item_list2 div.hot-item2 div.info p.tit a");
+		        Elements link = doc.select("div.-fdGoodsName a");
+		        //Elements link2 = doc.select("div.-fdThumb div div div a");
+		        //System.out.println(link2.size());
 		        //Elements images=doc.select("div.hot_item_list2 div.hot-item2 div.box a img");
-		        
+		        //System.out.println(link.size());
+		        //System.out.println(link2.size());
 		        for (int j = 0; j < link.size(); j++) {
-		            String subLink = "https://www.visitbusan.net" + link.get(j).attr("href");
+		            String subLink = "https://egnmall.kr/" + link.get(j).attr("href");
+//		            String subLink2 = "https://egnmall.kr/" + link2.get(j).attr("href");
 		            //System.out.println(subLink);
+//		            System.out.println(subLink2);
+		            
 		            Document doc2=Jsoup.connect(subLink).get();
-		            Elements images=doc.select("div.hot_item_list2 div.hot-item2 div.actionImg3 a img");
-		            String image="https://www.visitbusan.net"+images.get(j).attr("src").substring(0, images.attr("src").lastIndexOf("thumbL"))+"ttiel";
-	        	    //System.out.println(image);
-		            Elements titles=doc2.select("section#title div.innerwrap h4.tit");
+		            Elements titles=doc2.select("div.-bdTitleWrap table tr td div h4");
 		            String title=titles.text();
-		            //System.out.println(title);
+		            System.out.println(title);
 		            
-		            Elements contents=doc2.select("div.tab_con div.tripvideo div.cont");
-		            String content=contents.text();
-		           // System.out.println(content);
 		            
-		            Elements infotitles=doc2.select("div.tab_con div.tripvideo div.cntInfoDetails ul.InfoD-List li p");  
-		            String menu="정보없음";
-		            String address="정보없음";
-		            String call="정보없음";
-		            String rest="정보없음";
-		            String home="정보없음";
-	            	String time="정보없음";
-	            	String price="정보없음";
-	            	for(int a=0;a<infotitles.size();a++)
-	            	{
-	            		String ss=infotitles.get(a).text();
-	            		if(ss.contains("대표"))
-	            		{
-	            			Element infodetails=doc2.select("div.tab_con div.tripvideo div.cntInfoDetails ul.InfoD-List li span").get(a);
-	            			menu=infodetails.text();
-	            		}
-	            		if(ss.contains("주소"))
-	            		{
-	            			Element infodetails=doc2.select("div.tab_con div.tripvideo div.cntInfoDetails ul.InfoD-List li span").get(a);
-	            			address=infodetails.text();
-	            		}
-	            		if(ss.contains("전화번호"))
-	            		{
-	            			Element infodetails=doc2.select("div.tab_con div.tripvideo div.cntInfoDetails ul.InfoD-List li span").get(a);
-	            			call=infodetails.text();
-	            		}
-	            		if(ss.contains("휴무일"))
-	            		{
-	            			Element infodetails=doc2.select("div.tab_con div.tripvideo div.cntInfoDetails ul.InfoD-List li span").get(a);
-	            			rest=infodetails.text();
-	            		}
-	            		if(ss.contains("홈페이지"))
-	            		{
-	            			Element infodetails=doc2.select("div.tab_con div.tripvideo div.cntInfoDetails ul.InfoD-List li span").get(a);
-	            			home=infodetails.text();
-	            		}
-	            		if(ss.contains("시간"))
-	            		{
-	            			Element infodetails=doc2.select("div.tab_con div.tripvideo div.cntInfoDetails ul.InfoD-List li span").get(a);
-	            			time=infodetails.text();
-	            		}
+		            Elements images=doc2.select("div.swiper-wrapper div.swiper-slide img#big_img");
+		            String image="";
+		            if(images.attr("src").contains("jpg") || images.attr("src").contains("png") || images.attr("src").contains("gif"))
+		            {
+		            	image="https://egnmall.kr"+images.attr("src").replace("./", "/");
+			            //System.out.println(image);
+		            }
+//		            
+//		            Elements contents=doc2.select("div.tab_con div.tripvideo div.cont");
+//		            String content=contents.text();
+//		           /d/ System.out.println(content);
+//		            
+
+		            Elements orgins=doc2.select("div.-bdGoodsInfo table tbody tr td span");
+		            String ss=orgins.text();
+		            String orgin="국내산(부산)";
+		            if(ss.contains("국내산(경남") || ss.contains("국내산(경상"))
+		            {
+		            	String ss2=orgins.text().substring(orgins.text().indexOf("국내산"));
+		            	orgin=ss2.substring(0,ss2.indexOf(")")+1);
+		            	if(orgin.contains("x 개"))
+		            	{
+		            		orgin=orgin.substring(0,orgin.indexOf("산")+1);
+		            	}
+			            
+		            }
+		            //System.out.println(orgin);
+	            		
+//		            String orgin=orgins.text();
+		            
+		            
+		            Elements prices=doc2.select("div.-bdGoodsInfo td.-bdPriceGoods span.price_unit");  
+		            String price=prices.text().substring(0,prices.text().indexOf("원")+1);
+		            //System.out.println(price);
+		            
+		            Elements facs=doc2.select("div.-bdGoodsInfo table tbody tr td a");  
+		            String fac=facs.text();
+		            //System.out.println(fac);
+		            
+		            Elements detailimages=doc2.select("div.-fdDescription div p img");  
+		            String detailimage="";
+		            String de=detailimages.attr("src");
+		            if(de.contains("gif") || de.contains("jpg") || de.contains("png"))
+		            {
+		            	detailimage="https://egnmall.kr"+detailimages.attr("src");
+		            }
+		            else {
+		            	detailimage="https://egnmall.kr"+images.attr("src").replace("./", "/");
+		            }
+		            //System.out.println(detailimage);
+		            
+		            
+		            
+		            
+		            
+//		            String origin="정보없음";
+//		            String fac="정보없음";
+//		            String price="정보없음";
+//		            String rest="정보없음";
+//		            String home="정보없음";
+//	            	String time="정보없음";
+//	            	String price="정보없음";
+//	            	for(int a=0;a<infotitles.size();a++)
+//	            	{
+//	            		String ss=infotitles.get(a).text();
+//	            		if(ss.contains("대표"))
+//	            		{
+//	            			Element infodetails=doc2.select("div.tab_con div.tripvideo div.cntInfoDetails ul.InfoD-List li span").get(a);
+//	            			menu=infodetails.text();
+//	            		}
+//	            		if(ss.contains("주소"))
+//	            		{
+//	            			Element infodetails=doc2.select("div.tab_con div.tripvideo div.cntInfoDetails ul.InfoD-List li span").get(a);
+//	            			address=infodetails.text();
+//	            		}
+//	            		if(ss.contains("전화번호"))
+//	            		{
+//	            			Element infodetails=doc2.select("div.tab_con div.tripvideo div.cntInfoDetails ul.InfoD-List li span").get(a);
+//	            			call=infodetails.text();
+//	            		}
+//	            		if(ss.contains("휴무일"))
+//	            		{
+//	            			Element infodetails=doc2.select("div.tab_con div.tripvideo div.cntInfoDetails ul.InfoD-List li span").get(a);
+//	            			rest=infodetails.text();
+//	            		}
+//	            		if(ss.contains("홈페이지"))
+//	            		{
+//	            			Element infodetails=doc2.select("div.tab_con div.tripvideo div.cntInfoDetails ul.InfoD-List li span").get(a);
+//	            			home=infodetails.text();
+//	            		}
+//	            		if(ss.contains("시간"))
+//	            		{
+//	            			Element infodetails=doc2.select("div.tab_con div.tripvideo div.cntInfoDetails ul.InfoD-List li span").get(a);
+//	            			time=infodetails.text();
+//	            		}
 	            		
 	            		
-	            	}
+//	            	}
 
 		            
 		            
@@ -100,15 +152,15 @@ public class MainClass_4 {
 		            
 		            
 		            
-		            String msg=(s++)+"|"+title+"|"+image+"|"+content+"|"+
-		            		menu+"|"+address+"|"+call+"|"+rest+"|"+time+"\r\n";
-		            String image1=image+"\r\n";
-		            
-
-		            System.out.println(image1);
-		            
-		            FileWriter fw=new FileWriter("c:\\java_data\\foodImage.txt", true);
-		            fw.write(image1);
+		            String msg=title+"|"+image+"|"+price+"|"+orgin+"|"+
+		            		fac+"|"+detailimage+"\r\n";
+//		            String image1=image+"\r\n";
+//		            
+//
+//		            System.out.println(image1);
+//		            
+		            FileWriter fw=new FileWriter("c:\\java_data\\shopping.txt", true);
+		            fw.write(msg);
 		            fw.close();
 		        }
 
